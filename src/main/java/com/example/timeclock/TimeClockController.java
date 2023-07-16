@@ -1,7 +1,6 @@
 package com.example.timeclock;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.aggregation.ArithmeticOperators;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,8 +10,11 @@ import java.util.Optional;
 
 @Controller
 public class TimeClockController {
+    private final TimeClockDataHandler dataHandler;
     @Autowired
-    private TimeClockDataHandler dataHandler;
+    public TimeClockController(TimeClockDataHandler dataHandler) {
+        this.dataHandler = dataHandler;
+    }
 
     @RequestMapping("/")
     public ModelAndView homePage() {
@@ -28,9 +30,7 @@ public class TimeClockController {
         if(query.isEmpty()) {
             modelAndView = new ModelAndView("redirect:/error/EmployeeNotFound");
         } else {
-            Employee employee = query.get();
             modelAndView = new ModelAndView("redirect:/users/" + id + "/clock");
-            System.out.println(employee);
         }
 
         return modelAndView;
@@ -39,14 +39,14 @@ public class TimeClockController {
     @RequestMapping("/error/EmployeeNotFound")
     public ModelAndView employeeNotFoundPage() {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("EmployeeNotFound.html");
+        modelAndView.setViewName("/error/EmployeeNotFound.html");
         return modelAndView;
     }
 
     @RequestMapping("/users/{id}/clock")
     public ModelAndView clockPage(@PathVariable String id) {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("../../clock.html");
+        modelAndView.setViewName("clock.html");
         return modelAndView;
     }
 
