@@ -1,13 +1,22 @@
 package com.example.timeclock;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+
 @SpringBootApplication
-public class TimeClockApplication {
+public class TimeClockApplication implements CommandLineRunner {
 
-	public static void main(String[] args) {
-		SpringApplication.run(TimeClockApplication.class, args);
-	}
+    @Autowired
+    private EmployeeRepository repository;
+    public static void main(String[] args) {
+        SpringApplication.run(TimeClockApplication.class, args);
+    }
 
+    @Override
+    public void run(String... args) throws Exception {
+        repository.findById("52354");
+    }
 }
