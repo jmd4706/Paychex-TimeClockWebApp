@@ -2,13 +2,9 @@ package com.example.timeclock;
 
 import org.springframework.data.annotation.Id;
 
-import java.math.BigInteger;
 import java.time.LocalDateTime;
-import java.util.Random;
 
 public class Employee {
-    private Integer minEmployeeId = 10000;
-    private Integer maxEmployeeId = 99999;
 
     @Id
     public String id;
@@ -16,8 +12,6 @@ public class Employee {
     public String lastName;
     public String creationDate;
     public Boolean clockedIn;
-
-    public Employee() {};
 
     public Employee(String firstName, String lastName) {
         this.id = String.valueOf(newEmployeeId());
@@ -35,6 +29,8 @@ public class Employee {
     }
 
     private int newEmployeeId() {
+        int minEmployeeId = 10000;
+        int maxEmployeeId = 99999;
         return (int) ((Math.random() * (maxEmployeeId - minEmployeeId)) + minEmployeeId);
     }
 }

@@ -16,7 +16,7 @@ public class TimeClockApplication implements CommandLineRunner {
     }
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
         repository.findById("52354");
     }
 }
