@@ -21,4 +21,10 @@ public class TimeClockDataHandler {
     public void save(Employee employee) {
         repository.save(employee);
     }
+
+    public Employee createNewUser(String firstName, String lastName) {
+        Employee employee = new Employee(firstName, lastName);
+        repository.save(employee);
+        return employee;
+    }
 }

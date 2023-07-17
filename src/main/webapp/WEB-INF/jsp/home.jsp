@@ -22,5 +22,7 @@
     <input id="idInput">
 </label>
 <button onclick="submitButton()">Submit</button>
+<p>New employee?</p>
+<button onclick="window.location.href='/registerPage';">Register</button>
 </body>
 </html>

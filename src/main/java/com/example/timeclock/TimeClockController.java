@@ -1,7 +1,6 @@
 package com.example.timeclock;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.aggregation.ArithmeticOperators;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -72,4 +71,16 @@ public class TimeClockController {
         } else {
             return new ModelAndView("/error/EmployeeNotFound");
         }
-    }}
+    }
+
+    @RequestMapping("/registerPage")
+    public ModelAndView registerPage() {
+        return new ModelAndView("/registerPage");
+    }
+
+    @RequestMapping("/users/{firstName}/{lastName}/register")
+    public ModelAndView register(@PathVariable String firstName, @PathVariable String lastName) {
+        Employee employee = dataHandler.createNewUser(firstName, lastName);
+        return new ModelAndView("/newUserCreated", "employee", employee);
+    }
+}
