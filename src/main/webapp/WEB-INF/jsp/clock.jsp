@@ -15,5 +15,7 @@
 <body>
   <b>Welcome, ${employee.firstName} ${employee.lastName},</b>
   <p>Clocked in? ${employee.clockedIn}</p>
+  <button onclick="window.location.href='/users/' + ${employee.id} + '/clockIn';">Clock In</button>
+  <button onclick="window.location.href='/users/' + ${employee.id} + '/clockOut';">Clock Out</button>
 </body>
 </html>

@@ -17,4 +17,8 @@ public class TimeClockDataHandler {
     public Optional<Employee> findById(String id) {
         return repository.findEmployeeById(id);
     }
+
+    public void save(Employee employee) {
+        repository.save(employee);
+    }
 }

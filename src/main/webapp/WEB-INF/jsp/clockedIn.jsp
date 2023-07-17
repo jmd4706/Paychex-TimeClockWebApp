@@ -1,18 +1,17 @@
 <%--
   Created by IntelliJ IDEA.
   User: abser
-  Date: 7/16/23
-  Time: 8:51 PM
+  Date: 7/17/23
+  Time: 12:14 PM
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-  <title>Error: Employee Not Found</title>
+    <title>Clocked Out</title>
 </head>
 <body>
-<p>Sorry, your Employee ID was not found in the database.</p>
-<p>Please try again, or register as a new employee.</p>
+<p>You have successfully clocked in.</p>
 <button onclick="window.location.href='/';">Return</button>
 </body>
 </html>

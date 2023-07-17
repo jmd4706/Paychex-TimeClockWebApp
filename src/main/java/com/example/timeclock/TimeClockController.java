@@ -1,6 +1,7 @@
 package com.example.timeclock;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.aggregation.ArithmeticOperators;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,17 +27,12 @@ public class TimeClockController {
         ModelAndView modelAndView;
         Optional<Employee> query = dataHandler.findById(id);
         if(query.isEmpty()) {
-            modelAndView = new ModelAndView("redirect:/error/EmployeeNotFound");
+            modelAndView = new ModelAndView("/error/EmployeeNotFound");
         } else {
             modelAndView = new ModelAndView("redirect:/users/" + id + "/clock");
         }
 
         return modelAndView;
-    }
-
-    @RequestMapping("/error/EmployeeNotFound")
-    public ModelAndView employeeNotFoundPage() {
-        return new ModelAndView("/error/EmployeeNotFound");
     }
 
     @RequestMapping("/users/{id}/clock")
@@ -49,4 +45,31 @@ public class TimeClockController {
             return new ModelAndView("/error/EmployeeNotFound");
         }
     }
-}
+
+    @RequestMapping("/users/{id}/clockIn")
+    public ModelAndView clockIn(@PathVariable String id) {
+        Optional<Employee> query = dataHandler.findById(id);
+        if(query.isPresent()) {
+            Employee employee = query.get();
+            if(employee.clockedIn) return new ModelAndView("/error/AlreadyClockedIn");
+            employee.clockedIn = true;
+            dataHandler.save(employee);
+            return new ModelAndView("/clockedIn");
+        } else {
+            return new ModelAndView("/error/EmployeeNotFound");
+        }
+    }
+
+    @RequestMapping("/users/{id}/clockOut")
+    public ModelAndView clockOut(@PathVariable String id) {
+        Optional<Employee> query = dataHandler.findById(id);
+        if(query.isPresent()) {
+            Employee employee = query.get();
+            if(!employee.clockedIn) return new ModelAndView("/error/AlreadyClockedOut");
+            employee.clockedIn = false;
+            dataHandler.save(employee);
+            return new ModelAndView("/clockedOut");
+        } else {
+            return new ModelAndView("/error/EmployeeNotFound");
+        }
+    }}
