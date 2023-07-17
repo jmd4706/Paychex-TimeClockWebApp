@@ -13,6 +13,10 @@ public class Employee {
     public String creationDate;
     public Boolean clockedIn;
 
+    public String getFirstName() {return firstName;}
+    public String getLastName() {return lastName;}
+    public Boolean getClockedIn() {return clockedIn;}
+
     public Employee(String firstName, String lastName) {
         this.id = String.valueOf(newEmployeeId());
         this.firstName = firstName;
