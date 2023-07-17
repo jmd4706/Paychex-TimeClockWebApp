@@ -1,7 +1,6 @@
 package com.example.timeclock;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,9 +18,7 @@ public class TimeClockController {
 
     @RequestMapping("/")
     public ModelAndView homePage() {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("/home");
-        return modelAndView;
+        return new ModelAndView("/home");
     }
 
     @RequestMapping("/users/{id}/searchForUser")
@@ -39,14 +36,17 @@ public class TimeClockController {
 
     @RequestMapping("/error/EmployeeNotFound")
     public ModelAndView employeeNotFoundPage() {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("/error/EmployeeNotFound");
-        return modelAndView;
+        return new ModelAndView("/error/EmployeeNotFound");
     }
 
     @RequestMapping("/users/{id}/clock")
     public ModelAndView clockPage(@PathVariable String id) {
-        Employee employee = dataHandler.findById(id).get();
-        return new ModelAndView("/clock", "employee", employee);
+        Optional<Employee> query = dataHandler.findById(id);
+        if(query.isPresent()) {
+            Employee employee = query.get();
+            return new ModelAndView("/clock", "employee", employee);
+        } else {
+            return new ModelAndView("/error/EmployeeNotFound");
+        }
     }
 }
