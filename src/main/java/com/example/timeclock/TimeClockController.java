@@ -50,9 +50,8 @@ public class TimeClockController {
         Optional<Employee> query = dataHandler.findById(id);
         if(query.isPresent()) {
             Employee employee = query.get();
-            if(employee.clockedIn) return new ModelAndView("/error/AlreadyClockedIn");
-            employee.clockedIn = true;
-            dataHandler.save(employee);
+            if(employee.getClockedIn()) return new ModelAndView("/error/AlreadyClockedIn");
+            dataHandler.punch(id);
             return new ModelAndView("/clockedIn");
         } else {
             return new ModelAndView("/error/EmployeeNotFound");
@@ -64,9 +63,8 @@ public class TimeClockController {
         Optional<Employee> query = dataHandler.findById(id);
         if(query.isPresent()) {
             Employee employee = query.get();
-            if(!employee.clockedIn) return new ModelAndView("/error/AlreadyClockedOut");
-            employee.clockedIn = false;
-            dataHandler.save(employee);
+            if(!employee.getClockedIn()) return new ModelAndView("/error/AlreadyClockedOut");
+            dataHandler.punch(id);
             return new ModelAndView("/clockedOut");
         } else {
             return new ModelAndView("/error/EmployeeNotFound");

@@ -13,8 +13,20 @@
   <title>Clock In/Out</title>
 </head>
 <body>
-  <b>Welcome, ${employee.firstName} ${employee.lastName},</b>
-  <p>Clocked in? ${employee.clockedIn}</p>
+  <b>Welcome, ${employee.firstName} ${employee.lastName}</b>
+  <p></p>
+  <span>Status: </span>
+  <% if(employee.getClockedIn()) { %>
+    <span>Clocked In</span>
+  <% } else { %>
+    <span>Clocked Out</span>
+  <% } %>
+  <p></p>
+  <b>Punch Record:</b>
+  <% for(String date : employee.getPunchRecord()) { %>
+    <p><%= date %></p>
+  <% } %>
+  <p></p>
   <button onclick="window.location.href='/users/' + ${employee.id} + '/clockIn';">Clock In</button>
   <button onclick="window.location.href='/users/' + ${employee.id} + '/clockOut';">Clock Out</button>
 </body>

@@ -18,13 +18,19 @@ public class TimeClockDataHandler {
         return repository.findEmployeeById(id);
     }
 
-    public void save(Employee employee) {
-        repository.save(employee);
-    }
-
     public Employee createNewUser(String firstName, String lastName) {
         Employee employee = new Employee(firstName, lastName);
         repository.save(employee);
         return employee;
+    }
+
+    public void punch(String id) {
+        Optional<Employee> query = repository.findEmployeeById(id);
+        if(query.isPresent()) {
+            Employee employee = query.get();
+            employee.punch();
+            repository.save(employee);
+        }
+
     }
 }
