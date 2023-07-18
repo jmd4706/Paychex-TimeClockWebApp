@@ -8,6 +8,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Optional;
 
+/**
+ * The controller that handles all client requests
+ */
 @Controller
 public class TimeClockController {
     private final TimeClockDataHandler dataHandler;
@@ -16,11 +19,20 @@ public class TimeClockController {
         this.dataHandler = dataHandler;
     }
 
+    /**
+     * Sends the home page to the client
+     * @return the ModelAndView resolved by Spring
+     */
     @RequestMapping("/")
     public ModelAndView homePage() {
         return new ModelAndView("/home");
     }
 
+    /**
+     * Searches the database for an Employee with the specified id
+     * @param id: the Employee's id
+     * @return the ModelAndView resolved by Spring
+     */
     @RequestMapping("/users/{id}/searchForUser")
     public ModelAndView searchForUser(@PathVariable String id) {
         ModelAndView modelAndView;
@@ -34,6 +46,11 @@ public class TimeClockController {
         return modelAndView;
     }
 
+    /**
+     * Sends the clock page to the client
+     * @param id: the Employee's id
+     * @return the ModelAndView resolved by Spring
+     */
     @RequestMapping("/users/{id}/clock")
     public ModelAndView clockPage(@PathVariable String id) {
         Optional<Employee> query = dataHandler.findById(id);
@@ -45,6 +62,11 @@ public class TimeClockController {
         }
     }
 
+    /**
+     * Clocks in an Employee
+     * @param id: the Employee's id
+     * @return the ModelAndView resolved by Spring
+     */
     @RequestMapping("/users/{id}/clockIn")
     public ModelAndView clockIn(@PathVariable String id) {
         Optional<Employee> query = dataHandler.findById(id);
@@ -58,6 +80,11 @@ public class TimeClockController {
         }
     }
 
+    /**
+     * Clocks out an Employee
+     * @param id: the Employee's id
+     * @return the ModelAndView resolved by Spring
+     */
     @RequestMapping("/users/{id}/clockOut")
     public ModelAndView clockOut(@PathVariable String id) {
         Optional<Employee> query = dataHandler.findById(id);
@@ -71,11 +98,19 @@ public class TimeClockController {
         }
     }
 
+    /**
+     * Sends the register page to the client
+     * @return the ModelAndView resolved by Spring
+     */
     @RequestMapping("/registerPage")
     public ModelAndView registerPage() {
         return new ModelAndView("/registerPage");
     }
 
+    /**
+     * Registers a new employee
+     * @return the ModelAndView resolved by Spring
+     */
     @RequestMapping("/users/{firstName}/{lastName}/register")
     public ModelAndView register(@PathVariable String firstName, @PathVariable String lastName) {
         Employee employee = dataHandler.createNewUser(firstName, lastName);

@@ -7,6 +7,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A class used to encapsulate all employee information
+ */
 public class Employee {
 
     @Id
@@ -37,12 +40,20 @@ public class Employee {
                 id, firstName, lastName, clockedIn);
     }
 
+    /**
+     * Generates a random new employee id with 5 digits
+     * @return the new employee id
+     */
     private int newEmployeeId() {
         int minEmployeeId = 10000;
         int maxEmployeeId = 99999;
         return (int) ((Math.random() * (maxEmployeeId - minEmployeeId)) + minEmployeeId);
     }
 
+    /**
+     * Punches (or clocks) an employee in or out, both being handled the same way. The clockedIn status is reversed
+     * and the current time is added to the punch record.
+     */
     public void punch() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String date = LocalDateTime.now().format(formatter);
